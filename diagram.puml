@@ -1,0 +1,148 @@
+@startuml
+class com.bohdanbulakh.drawing_app.CoordinateUtils$Companion {
++ Coordinates calculateStart(Coordinates,Coordinates)
+}
+
+class com.bohdanbulakh.drawing_app.CoordinateUtils {
+}
+class com.bohdanbulakh.drawing_app.ArrayUtils$Companion {
++ void addItem(Array<T?>,T)
++ T getLastItem(Array<T>)
++ void removeFirst(Array<T?>)
+}
+
+class com.bohdanbulakh.drawing_app.ArrayUtils {
+}
+class com.bohdanbulakh.drawing_app.MainActivity {
+-  submenuItems
+- MenuItem? checkedItem
+-  editor
++ void onCreate(Bundle?)
++ Boolean onCreateOptionsMenu(Menu?)
++ Boolean onOptionsItemSelected(MenuItem)
+}
+
+
+abstract class com.bohdanbulakh.drawing_app.shapes.Shape {
++ Coordinates start
++ Coordinates end
++ Boolean gumStyle
++ Paint gumStylePaint
++ Paint paint
++ void set(Coordinates)
++ void set(Coordinates,Coordinates)
++ void writeEnd(Coordinates)
++ void show(Canvas)
+}
+
+
+class com.bohdanbulakh.drawing_app.shapes.RectShape {
+-  fillPaint
++ <<Create>> RectShape()
++ void show(Canvas)
+}
+
+
+class com.bohdanbulakh.drawing_app.Canvas {
++  editor
++ <<Create>> Canvas(Context,AttributeSet)
++ void onDraw(Canvas)
++ Boolean onTouchEvent(MotionEvent?)
+}
+
+
+class com.bohdanbulakh.drawing_app.editors.RectEditor {
++ <<Create>> RectEditor(Array<Shape?>)
++ void onLBdown(Coordinates)
+}
+
+class com.bohdanbulakh.drawing_app.shapes.LineShape {
++ <<Create>> LineShape()
++ void show(Canvas)
+}
+
+class com.bohdanbulakh.drawing_app.shapes.PointShape {
++ <<Create>> PointShape()
++ void show(Canvas)
+}
+
+class com.bohdanbulakh.drawing_app.editors.LineEditor {
++ <<Create>> LineEditor(Array<Shape?>)
++ void onLBdown(Coordinates)
+}
+
+class com.bohdanbulakh.drawing_app.editors.ShapeObjectsEditor$Companion {
++  ARRAY_SIZE
+-  shapes
+- ShapeEditor? editor
++ void onLBdown(Coordinates)
++ void onMouseMove(Coordinates)
++ void onLBup(Coordinates)
++ void onPaint(Canvas)
++ void startPointEditor()
++ void startLineEditor()
++ void startRectEditor()
++ void startEllipseEditor()
+}
+
+
+class com.bohdanbulakh.drawing_app.editors.ShapeObjectsEditor {
++ <<Create>> ShapeObjectsEditor()
+}
+
+class com.bohdanbulakh.drawing_app.shapes.EllipseShape {
++ <<Create>> EllipseShape()
++ void show(Canvas)
+}
+
+class com.bohdanbulakh.drawing_app.Coordinates {
++ <<Create>> Coordinates(Float,Float)
+}
+
+class com.bohdanbulakh.drawing_app.editors.PointEditor {
++ <<Create>> PointEditor(Array<Shape?>)
++ void onLBdown(Coordinates)
++ void onMouseMove(Coordinates)
++ void onLBup(Coordinates)
+}
+
+abstract class com.bohdanbulakh.drawing_app.editors.Editor {
++ void onLBdown(Coordinates)
++ void onLBup(Coordinates)
++ void onMouseMove(Coordinates)
++ void onPaint(Canvas)
+}
+
+class com.bohdanbulakh.drawing_app.editors.EllipseEditor {
+- Coordinates center
++ <<Create>> EllipseEditor(Array<Shape?>)
++ void onLBdown(Coordinates)
++ void onMouseMove(Coordinates)
+}
+
+
+abstract class com.bohdanbulakh.drawing_app.editors.ShapeEditor {
++ <<Create>> ShapeEditor(Array<Shape?>)
++ void onLBdown(Coordinates)
++ void onLBup(Coordinates)
++ void onMouseMove(Coordinates)
++ void onPaint(Canvas)
+}
+
+
+
+com.bohdanbulakh.drawing_app.CoordinateUtils +.. com.bohdanbulakh.drawing_app.CoordinateUtils$Companion
+com.bohdanbulakh.drawing_app.ArrayUtils +.. com.bohdanbulakh.drawing_app.ArrayUtils$Companion
+androidx.appcompat.app.AppCompatActivity <|-- com.bohdanbulakh.drawing_app.MainActivity
+com.bohdanbulakh.drawing_app.shapes.Shape <|-- com.bohdanbulakh.drawing_app.shapes.RectShape
+android.view.View <|-- com.bohdanbulakh.drawing_app.Canvas
+com.bohdanbulakh.drawing_app.editors.ShapeEditor <|-- com.bohdanbulakh.drawing_app.editors.RectEditor
+com.bohdanbulakh.drawing_app.shapes.Shape <|-- com.bohdanbulakh.drawing_app.shapes.LineShape
+com.bohdanbulakh.drawing_app.shapes.Shape <|-- com.bohdanbulakh.drawing_app.shapes.PointShape
+com.bohdanbulakh.drawing_app.editors.ShapeEditor <|-- com.bohdanbulakh.drawing_app.editors.LineEditor
+com.bohdanbulakh.drawing_app.editors.ShapeObjectsEditor +.. com.bohdanbulakh.drawing_app.editors.ShapeObjectsEditor$Companion
+com.bohdanbulakh.drawing_app.shapes.Shape <|-- com.bohdanbulakh.drawing_app.shapes.EllipseShape
+com.bohdanbulakh.drawing_app.editors.ShapeEditor <|-- com.bohdanbulakh.drawing_app.editors.PointEditor
+com.bohdanbulakh.drawing_app.editors.ShapeEditor <|-- com.bohdanbulakh.drawing_app.editors.EllipseEditor
+com.bohdanbulakh.drawing_app.editors.Editor <|-- com.bohdanbulakh.drawing_app.editors.ShapeEditor
+@enduml

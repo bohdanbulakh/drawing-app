@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Drawing App</string>
+    <string name="objects">Об\'єкти</string>
+    <string name="point">Крапка</string>
+    <string name="line">Лінія</string>
+    <string name="rectangle">Прямокутник</string>
+    <string name="ellipse">Еліпс</string>
+    <string name="help">Довідка</string>
+    <string name="file">Файл</string>
 </resources>
