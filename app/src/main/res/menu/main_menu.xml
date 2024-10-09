@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/file"
+        android:title="@string/file"
+        app:showAsAction="ifRoom">
+
+    </item>
+    <item
+        android:id="@+id/objects"
+        android:title="@string/objects"
+        app:showAsAction="ifRoom">
+        <menu>
+            <item
+                android:id="@+id/point"
+                android:checkable="true"
+                android:title="@string/point"
+                app:showAsAction="never" />
+            <item
+                android:id="@+id/line"
+                android:checkable="true"
+                android:title="@string/line"
+                app:showAsAction="never" />
+            <item
+                android:id="@+id/rectangle"
+                android:checkable="true"
+                android:title="@string/rectangle"
+                app:showAsAction="never" />
+            <item
+                android:id="@+id/ellipse"
+                android:checkable="true"
+                android:title="@string/ellipse"
+                app:showAsAction="never" />
+        </menu>
+    </item>
+    <item
+        android:id="@+id/help"
+        android:title="@string/help"
+        app:showAsAction="always">
+
+    </item>
+</menu>
