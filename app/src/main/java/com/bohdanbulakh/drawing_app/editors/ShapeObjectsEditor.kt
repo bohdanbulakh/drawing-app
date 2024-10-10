@@ -6,7 +6,7 @@ import com.bohdanbulakh.drawing_app.shapes.Shape
 
 class ShapeObjectsEditor() {
     companion object {
-        private const val ARRAY_SIZE = 102
+        private const val ARRAY_SIZE = 103
         private val shapes = arrayOfNulls<Shape>(ARRAY_SIZE)
 
         private var editor: ShapeEditor? = null

@@ -1,9 +1,9 @@
 package com.bohdanbulakh.drawing_app.editors
 
-import com.bohdanbulakh.drawing_app.ArrayUtils
 import com.bohdanbulakh.drawing_app.Coordinates
 import com.bohdanbulakh.drawing_app.shapes.Shape
 import com.bohdanbulakh.drawing_app.shapes.LineShape
+import com.bohdanbulakh.drawing_app.utils.ArrayUtils
 
 class LineEditor(val shapes: Array<Shape?>) : ShapeEditor(shapes) {
     override fun onLBdown(start: Coordinates) {

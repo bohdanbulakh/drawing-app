@@ -1,15 +1,22 @@
 package com.bohdanbulakh.drawing_app
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Button
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.PopupMenu
 import androidx.appcompat.widget.Toolbar
+import androidx.core.content.ContextCompat
 import com.bohdanbulakh.drawing_app.editors.*
 
 class MainActivity : AppCompatActivity() {
-    private val submenuItems = arrayOf(R.id.line, R.id.point, R.id.rectangle, R.id.ellipse)
-    private var checkedItem: MenuItem? = null
+    private var checkedToolbarMenuItem: MenuItem? = null
+    private lateinit var toolbarMenu: Menu
+    private lateinit var mainMenu: Menu
+    private lateinit var windowTitle: TextView
 
     private val editor = ShapeObjectsEditor
 
@@ -19,26 +26,56 @@ class MainActivity : AppCompatActivity() {
 
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
+
+        val objectsMenuButton: Button = findViewById(R.id.objects)
+        val objectsMainMenu = PopupMenu(this, objectsMenuButton)
+        objectsMainMenu.menuInflater.inflate(R.menu.main_menu, objectsMainMenu.menu)
+
+        objectsMenuButton.setOnClickListener {
+            objectsMainMenu.show()
+        }
+
+        objectsMainMenu.setOnMenuItemClickListener { item ->
+            startEditor(item)
+        }
+
+        windowTitle = findViewById(R.id.window_title)
+        mainMenu = objectsMainMenu.menu
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.main_menu, menu)
+        toolbarMenu = menu!!
+        menuInflater.inflate(R.menu.toolbar_menu, menu)
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (submenuItems.contains(item.itemId)) {
-            checkedItem?.isChecked = false
-            checkedItem = item
-            checkedItem?.isChecked = true
+        return startEditor(item)
+    }
 
-            when (item.itemId) {
-                R.id.point -> editor.startPointEditor()
-                R.id.line -> editor.startLineEditor()
-                R.id.rectangle -> editor.startRectEditor()
-                R.id.ellipse -> editor.startEllipseEditor()
-            }
+    private fun startEditor(item: MenuItem): Boolean {
+        val objectsItem = MenuItems.getShape(item.itemId)
+
+        windowTitle.text = objectsItem?.text
+        makeToolbarMenuItemActive(objectsItem!!.toolbar)
+
+        when (item.itemId) {
+            in MenuItems.POINT.ids -> editor.startPointEditor()
+            in MenuItems.LINE.ids -> editor.startLineEditor()
+            in MenuItems.RECT.ids -> editor.startRectEditor()
+            in MenuItems.ELLIPSE.ids -> editor.startEllipseEditor()
         }
-        return super.onOptionsItemSelected(item)
+        return true
+    }
+
+    private fun makeToolbarMenuItemActive(itemId: Int) {
+        checkedToolbarMenuItem?.icon?.setTint(
+            ContextCompat.getColor(
+                this, R.color.dark_grey
+            )
+        )
+
+        checkedToolbarMenuItem = toolbarMenu.findItem(itemId)
+        checkedToolbarMenuItem?.icon?.setTint(Color.BLACK)
     }
 }

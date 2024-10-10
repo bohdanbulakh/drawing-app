@@ -1,14 +1,4 @@
-package com.bohdanbulakh.drawing_app
-
-class CoordinateUtils {
-    companion object {
-        fun calculateStart(center: Coordinates, end: Coordinates): Coordinates {
-            val startX = 2 * center.x - end.x
-            val startY = 2 * center.y - end.y
-            return Coordinates(startX, startY)
-        }
-    }
-}
+package com.bohdanbulakh.drawing_app.utils
 
 class ArrayUtils {
     companion object {
