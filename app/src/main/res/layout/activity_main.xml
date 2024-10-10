@@ -3,22 +3,58 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".MainActivity">
+
+    <LinearLayout
+        style="?android:attr/buttonBarStyle"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/file"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/file"
+            android:textColor="@color/black"
+            android:textSize="12sp" />
+
+
+        <Button
+            android:id="@+id/objects"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/objects"
+            android:textColor="@color/black"
+            android:textSize="12sp" />
+
+
+        <Button
+            android:id="@+id/help"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/help"
+            android:textColor="@color/black"
+            android:textSize="12sp" />
+    </LinearLayout>
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@color/primary60"
+        android:background="@color/grey"
+        android:layoutDirection="rtl"
         app:title=" " />
 
     <com.bohdanbulakh.drawing_app.Canvas
         android:id="@+id/canvas"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
-
 
 </LinearLayout>

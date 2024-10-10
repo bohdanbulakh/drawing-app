@@ -1,10 +1,10 @@
 package com.bohdanbulakh.drawing_app.editors
 
-import com.bohdanbulakh.drawing_app.ArrayUtils
-import com.bohdanbulakh.drawing_app.CoordinateUtils
 import com.bohdanbulakh.drawing_app.Coordinates
 import com.bohdanbulakh.drawing_app.shapes.Shape
 import com.bohdanbulakh.drawing_app.shapes.EllipseShape
+import com.bohdanbulakh.drawing_app.utils.ArrayUtils
+import com.bohdanbulakh.drawing_app.utils.CoordinateUtils
 
 class EllipseEditor(val shapes: Array<Shape?>) : ShapeEditor(shapes) {
     private lateinit var center: Coordinates
