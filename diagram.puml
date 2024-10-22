@@ -2,7 +2,6 @@
 class com.bohdanbulakh.drawing_app.MainActivity {
 - MenuItem? checkedToolbarMenuItem
 - Menu toolbarMenu
-- Menu mainMenu
 - TextView windowTitle
 -  editor
 + void onCreate(Bundle?)
@@ -14,34 +13,40 @@ class com.bohdanbulakh.drawing_app.MainActivity {
 
 
 class com.bohdanbulakh.drawing_app.utils.CoordinateUtils$Companion {
-+ Coordinates calculateStart(Coordinates,Coordinates)
++ Coordinates calcStartFromCenter(Coordinates,Coordinates)
++ CoordinatesPair calcCubeCoords(CoordinatesPair)
++ Array<CoordinatesPair> getCubeLinesCoords(CoordinatesPair,CoordinatesPair)
++ CoordinatesPair calcCircleCoords(Coordinates,Float)
 }
 
 class com.bohdanbulakh.drawing_app.utils.CoordinateUtils {
 }
 abstract class com.bohdanbulakh.drawing_app.shapes.Shape {
-+ Coordinates start
-+ Coordinates end
++ CoordinatesPair coords
 + Boolean gumStyle
 + Paint gumStylePaint
 + Paint paint
-+ void set(Coordinates)
-+ void set(Coordinates,Coordinates)
-+ void writeEnd(Coordinates)
-+ void show(Canvas)
+}
+
+class com.bohdanbulakh.drawing_app.MyEditor {
+-  arraySize
+-  shapes
+- ShapeInterface currentShape
++ void start(ShapeInterface)
++ void onPaint(Canvas)
++ void onLBdown(Coordinates)
++ void onMouseMove(Coordinates)
++ void onLBup()
 }
 
 
 class com.bohdanbulakh.drawing_app.shapes.RectShape {
+- Coordinates center
 + <<Create>> RectShape()
 + void show(Canvas)
-}
-
-class com.bohdanbulakh.drawing_app.Canvas {
-+  editor
-+ <<Create>> Canvas(Context,AttributeSet)
-+ void onDraw(Canvas)
-+ Boolean onTouchEvent(MotionEvent?)
++ void set(CoordinatesPair)
++ void writeEnd(Coordinates)
++ void getShape()
 }
 
 
@@ -53,46 +58,40 @@ class com.bohdanbulakh.drawing_app.utils.ArrayUtils$Companion {
 
 class com.bohdanbulakh.drawing_app.utils.ArrayUtils {
 }
-class com.bohdanbulakh.drawing_app.editors.RectEditor {
-- Coordinates center
-+ <<Create>> RectEditor(Array<Shape?>)
-+ void onLBdown(Coordinates)
-+ void onMouseMove(Coordinates)
+class com.bohdanbulakh.drawing_app.Canvas {
+- MyEditor editor
++ <<Create>> Canvas(Context,AttributeSet)
++ void setEditor(MyEditor)
++ void onDraw(Canvas)
++ Boolean onTouchEvent(MotionEvent?)
 }
 
 
 class com.bohdanbulakh.drawing_app.shapes.LineShape {
 + <<Create>> LineShape()
-+ void show(Canvas)
 }
 
 class com.bohdanbulakh.drawing_app.shapes.PointShape {
 + <<Create>> PointShape()
 + void show(Canvas)
++ void getShape()
 }
 
-class com.bohdanbulakh.drawing_app.editors.LineEditor {
-+ <<Create>> LineEditor(Array<Shape?>)
-+ void onLBdown(Coordinates)
+class com.bohdanbulakh.drawing_app.shapes.LineOOShape {
++ <<Create>> LineOOShape()
++ void show(Canvas)
++ void getShape()
 }
 
-class com.bohdanbulakh.drawing_app.editors.ShapeObjectsEditor$Companion {
--  ARRAY_SIZE
--  shapes
-- ShapeEditor? editor
-+ void onLBdown(Coordinates)
-+ void onMouseMove(Coordinates)
-+ void onLBup(Coordinates)
-+ void onPaint(Canvas)
-+ void startPointEditor()
-+ void startLineEditor()
-+ void startRectEditor()
-+ void startEllipseEditor()
+interface com.bohdanbulakh.drawing_app.shapes.interfaces.LineInterface {
++ void show(Canvas)
++ ShapeInterface getShape()
 }
 
-
-class com.bohdanbulakh.drawing_app.editors.ShapeObjectsEditor {
-+ <<Create>> ShapeObjectsEditor()
+class com.bohdanbulakh.drawing_app.shapes.CubeShape {
++ <<Create>> CubeShape()
++ void show(Canvas)
++ void getShape()
 }
 
 class com.bohdanbulakh.drawing_app.MenuItems$Companion {
@@ -102,7 +101,9 @@ class com.bohdanbulakh.drawing_app.MenuItems$Companion {
 enum com.bohdanbulakh.drawing_app.MenuItems {
 +  POINT
 +  LINE
++  LINE_WITH_POINTS
 +  RECT
++  CUBE
 +  ELLIPSE
 +  ids
 + <<Create>> MenuItems(Int,Int,String)
@@ -110,9 +111,22 @@ enum com.bohdanbulakh.drawing_app.MenuItems {
 
 
 class com.bohdanbulakh.drawing_app.shapes.EllipseShape {
--  fillPaint
++  fillPaint
 + <<Create>> EllipseShape()
 + void show(Canvas)
++ void getShape()
+}
+
+
+interface com.bohdanbulakh.drawing_app.shapes.interfaces.ShapeInterface {
++ CoordinatesPair coords
++ Boolean gumStyle
++ Paint gumStylePaint
++ Paint paint
++ void set(CoordinatesPair)
++ void writeEnd(Coordinates)
++ void show(Canvas)
++ ShapeInterface getShape()
 }
 
 
@@ -120,48 +134,26 @@ class com.bohdanbulakh.drawing_app.Coordinates {
 + <<Create>> Coordinates(Float,Float)
 }
 
-class com.bohdanbulakh.drawing_app.editors.PointEditor {
-+ <<Create>> PointEditor(Array<Shape?>)
-+ void onLBdown(Coordinates)
-+ void onMouseMove(Coordinates)
-+ void onLBup(Coordinates)
-}
-
-abstract class com.bohdanbulakh.drawing_app.editors.Editor {
-+ void onLBdown(Coordinates)
-+ void onLBup(Coordinates)
-+ void onMouseMove(Coordinates)
-+ void onPaint(Canvas)
-}
-
-class com.bohdanbulakh.drawing_app.editors.EllipseEditor {
-+ <<Create>> EllipseEditor(Array<Shape?>)
-+ void onLBdown(Coordinates)
-}
-
-abstract class com.bohdanbulakh.drawing_app.editors.ShapeEditor {
-+ <<Create>> ShapeEditor(Array<Shape?>)
-+ void onLBdown(Coordinates)
-+ void onLBup(Coordinates)
-+ void onMouseMove(Coordinates)
-+ void onPaint(Canvas)
+class com.bohdanbulakh.drawing_app.CoordinatesPair {
++ <<Create>> CoordinatesPair(Coordinates,Coordinates)
 }
 
 
 
 androidx.appcompat.app.AppCompatActivity <|-- com.bohdanbulakh.drawing_app.MainActivity
 com.bohdanbulakh.drawing_app.utils.CoordinateUtils +.. com.bohdanbulakh.drawing_app.utils.CoordinateUtils$Companion
+com.bohdanbulakh.drawing_app.shapes.interfaces.ShapeInterface <|.. com.bohdanbulakh.drawing_app.shapes.Shape
 com.bohdanbulakh.drawing_app.shapes.Shape <|-- com.bohdanbulakh.drawing_app.shapes.RectShape
-android.view.View <|-- com.bohdanbulakh.drawing_app.Canvas
 com.bohdanbulakh.drawing_app.utils.ArrayUtils +.. com.bohdanbulakh.drawing_app.utils.ArrayUtils$Companion
-com.bohdanbulakh.drawing_app.editors.ShapeEditor <|-- com.bohdanbulakh.drawing_app.editors.RectEditor
+android.view.View <|-- com.bohdanbulakh.drawing_app.Canvas
 com.bohdanbulakh.drawing_app.shapes.Shape <|-- com.bohdanbulakh.drawing_app.shapes.LineShape
+com.bohdanbulakh.drawing_app.shapes.interfaces.LineInterface <|.. com.bohdanbulakh.drawing_app.shapes.LineShape
 com.bohdanbulakh.drawing_app.shapes.Shape <|-- com.bohdanbulakh.drawing_app.shapes.PointShape
-com.bohdanbulakh.drawing_app.editors.ShapeEditor <|-- com.bohdanbulakh.drawing_app.editors.LineEditor
-com.bohdanbulakh.drawing_app.editors.ShapeObjectsEditor +.. com.bohdanbulakh.drawing_app.editors.ShapeObjectsEditor$Companion
+com.bohdanbulakh.drawing_app.shapes.EllipseShape <|-- com.bohdanbulakh.drawing_app.shapes.LineOOShape
+com.bohdanbulakh.drawing_app.shapes.interfaces.LineInterface <|.. com.bohdanbulakh.drawing_app.shapes.LineOOShape
+com.bohdanbulakh.drawing_app.shapes.interfaces.ShapeInterface <|.. com.bohdanbulakh.drawing_app.shapes.interfaces.LineInterface
+com.bohdanbulakh.drawing_app.shapes.RectShape <|-- com.bohdanbulakh.drawing_app.shapes.CubeShape
+com.bohdanbulakh.drawing_app.shapes.interfaces.LineInterface <|.. com.bohdanbulakh.drawing_app.shapes.CubeShape
 com.bohdanbulakh.drawing_app.MenuItems +.. com.bohdanbulakh.drawing_app.MenuItems$Companion
 com.bohdanbulakh.drawing_app.shapes.Shape <|-- com.bohdanbulakh.drawing_app.shapes.EllipseShape
-com.bohdanbulakh.drawing_app.editors.ShapeEditor <|-- com.bohdanbulakh.drawing_app.editors.PointEditor
-com.bohdanbulakh.drawing_app.editors.ShapeEditor <|-- com.bohdanbulakh.drawing_app.editors.EllipseEditor
-com.bohdanbulakh.drawing_app.editors.Editor <|-- com.bohdanbulakh.drawing_app.editors.ShapeEditor
 @enduml

@@ -10,19 +10,26 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.PopupMenu
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
-import com.bohdanbulakh.drawing_app.editors.*
+import com.bohdanbulakh.drawing_app.shapes.CubeShape
+import com.bohdanbulakh.drawing_app.shapes.EllipseShape
+import com.bohdanbulakh.drawing_app.shapes.LineOOShape
+import com.bohdanbulakh.drawing_app.shapes.LineShape
+import com.bohdanbulakh.drawing_app.shapes.PointShape
+import com.bohdanbulakh.drawing_app.shapes.RectShape
 
 class MainActivity : AppCompatActivity() {
     private var checkedToolbarMenuItem: MenuItem? = null
     private lateinit var toolbarMenu: Menu
-    private lateinit var mainMenu: Menu
     private lateinit var windowTitle: TextView
 
-    private val editor = ShapeObjectsEditor
+    private val editor = MyEditor()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        val canvas = findViewById<Canvas>(R.id.canvas)
+        canvas.setEditor(editor)
 
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
@@ -40,7 +47,6 @@ class MainActivity : AppCompatActivity() {
         }
 
         windowTitle = findViewById(R.id.window_title)
-        mainMenu = objectsMainMenu.menu
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -60,10 +66,12 @@ class MainActivity : AppCompatActivity() {
         makeToolbarMenuItemActive(objectsItem!!.toolbar)
 
         when (item.itemId) {
-            in MenuItems.POINT.ids -> editor.startPointEditor()
-            in MenuItems.LINE.ids -> editor.startLineEditor()
-            in MenuItems.RECT.ids -> editor.startRectEditor()
-            in MenuItems.ELLIPSE.ids -> editor.startEllipseEditor()
+            in MenuItems.POINT.ids -> editor.start(PointShape())
+            in MenuItems.LINE.ids -> editor.start(LineShape())
+            in MenuItems.LINE_WITH_POINTS.ids -> editor.start(LineOOShape())
+            in MenuItems.RECT.ids -> editor.start(RectShape())
+            in MenuItems.CUBE.ids -> editor.start(CubeShape())
+            in MenuItems.ELLIPSE.ids -> editor.start(EllipseShape())
         }
         return true
     }
@@ -76,6 +84,6 @@ class MainActivity : AppCompatActivity() {
         )
 
         checkedToolbarMenuItem = toolbarMenu.findItem(itemId)
-        checkedToolbarMenuItem?.icon?.setTint(Color.BLACK)
+        checkedToolbarMenuItem?.icon?.setTint(Color.MAGENTA)
     }
 }
