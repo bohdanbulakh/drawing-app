@@ -4,8 +4,8 @@ import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 
-class EllipseShape() : Shape() {
-    private val fillPaint = Paint().apply {
+open class EllipseShape() : Shape() {
+    val fillPaint = Paint().apply {
         style = Paint.Style.FILL
         color = Color.rgb(0, 255, 255)
     }
@@ -18,4 +18,6 @@ class EllipseShape() : Shape() {
             canvas.drawOval(start.x, start.y, end.x, end.y, paint)
         }
     }
+
+    override fun getShape() = EllipseShape()
 }

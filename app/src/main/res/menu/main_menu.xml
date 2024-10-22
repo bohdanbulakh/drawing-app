@@ -8,8 +8,14 @@
         android:id="@+id/line"
         android:title="@string/line" />
     <item
+        android:id="@+id/line_with_points"
+        android:title="@string/line_with_points" />
+    <item
         android:id="@+id/rectangle"
         android:title="@string/rectangle" />
+    <item
+        android:id="@+id/cube"
+        android:title="@string/cube" />
     <item
         android:id="@+id/ellipse"
         android:title="@string/ellipse" />

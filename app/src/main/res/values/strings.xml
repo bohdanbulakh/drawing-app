@@ -7,4 +7,6 @@
     <string name="ellipse">Еліпс</string>
     <string name="help">Довідка</string>
     <string name="file">Файл</string>
+    <string name="cube">Куб</string>
+    <string name="line_with_points">Лінія з крапками</string>
 </resources>

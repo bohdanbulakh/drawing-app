@@ -8,8 +8,18 @@
         android:title=""
         app:showAsAction="always" />
     <item
+        android:id="@+id/toolbar_menu_cube"
+        android:icon="@drawable/cube"
+        android:title=""
+        app:showAsAction="always" />
+    <item
         android:id="@+id/toolbar_menu_rect"
         android:icon="@drawable/rect"
+        android:title=""
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/toolbar_menu_line_with_points"
+        android:icon="@drawable/line_with_points"
         android:title=""
         app:showAsAction="always" />
     <item
