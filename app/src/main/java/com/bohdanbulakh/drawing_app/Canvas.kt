@@ -7,11 +7,7 @@ import android.view.MotionEvent
 import android.view.View
 
 class Canvas(context: Context, attributeSet: AttributeSet) : View(context, attributeSet) {
-    private lateinit var editor: MyEditor
-
-    fun setEditor(editor: MyEditor) {
-        this.editor = editor
-    }
+    private val editor = MyEditor.getInstance()
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)

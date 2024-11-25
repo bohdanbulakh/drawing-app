@@ -41,7 +41,6 @@
             android:textColor="@color/black"
             android:textSize="12sp" />
 
-
         <Button
             android:id="@+id/objects"
             style="?android:attr/buttonBarButtonStyle"
@@ -51,6 +50,14 @@
             android:textColor="@color/black"
             android:textSize="12sp" />
 
+        <Button
+            android:id="@+id/tableButton"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/table"
+            android:textColor="@color/black"
+            android:textSize="12sp" />
 
         <Button
             android:id="@+id/help"
@@ -70,9 +77,24 @@
         android:layoutDirection="rtl"
         app:title=" " />
 
-    <com.bohdanbulakh.drawing_app.Canvas
-        android:id="@+id/canvas"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/table_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:background="#eeeeee"
+        android:orientation="vertical"
+        android:visibility="visible">
 
+        <FrameLayout
+            android:id="@+id/fragment_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:elevation="5dp"/>
+
+        <com.bohdanbulakh.drawing_app.Canvas
+            android:id="@+id/canvas"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </LinearLayout>

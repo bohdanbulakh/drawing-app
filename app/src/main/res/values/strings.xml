@@ -9,4 +9,14 @@
     <string name="file">Файл</string>
     <string name="cube">Куб</string>
     <string name="line_with_points">Лінія з крапками</string>
+    <string name="table">Таблиця</string>
+    <string name="name">Назва</string>
+    <string name="x1">x1</string>
+    <string name="x2">x2</string>
+    <string name="y1">y1</string>
+    <string name="y2">y2</string>
+    <string name="remove">Видалити</string>
+    <string name="highlight">Виділити</string>
+    <string name="save">Зберегти</string>
+    <string name="open">Відкрити</string>
 </resources>
