@@ -2,6 +2,7 @@ package com.bohdanbulakh.drawing_app.utils
 
 import com.bohdanbulakh.drawing_app.Coordinates
 import com.bohdanbulakh.drawing_app.CoordinatesPair
+import kotlin.math.abs
 
 class CoordinateUtils {
     companion object {
@@ -13,10 +14,10 @@ class CoordinateUtils {
 
         fun calcCubeCoords(coords: CoordinatesPair): CoordinatesPair {
             val startX = coords.start.x + (coords.end.x - coords.start.x) / 3
-            val startY = coords.start.y - (coords.end.y - coords.start.y) / 3
+            val startY = coords.start.y - (abs(coords.end.y - coords.start.y)) / 3
 
             val endX = coords.end.x + (coords.end.x - coords.start.x) / 3
-            val endY = coords.end.y - (coords.end.y - coords.start.y) / 3
+            val endY = coords.end.y - (abs(coords.end.y - coords.start.y)) / 3
 
             return CoordinatesPair(
                 Coordinates(startX, startY),

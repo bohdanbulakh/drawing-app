@@ -10,12 +10,13 @@ class ArrayUtils {
             for (i in 0..array.lastIndex) {
                 if (array[i] == null) {
                     array[i] = value
+                    return
                 }
             }
         }
 
         fun <T> getLastItem(array: Array<T>): T {
-            for (i in 0..(array.lastIndex - 1)) {
+            for (i in 0..<array.lastIndex) {
                 if (array[i] != null && array[i + 1] == null) return array[i]
             }
 
@@ -27,6 +28,19 @@ class ArrayUtils {
                 array[i - 1] = array[i]
             }
             array[array.lastIndex] = null
+        }
+
+        fun <T> removeAtIndex(index: Int, array: Array<T?>) {
+            for (i in (index + 1)..array.lastIndex) {
+                array[i - 1] = array[i]
+            }
+            array[array.lastIndex] = null
+        }
+
+        fun <T> clear (array: Array<T?>) {
+            for (i in 0..array.lastIndex) {
+                array[i] = null
+            }
         }
     }
 }

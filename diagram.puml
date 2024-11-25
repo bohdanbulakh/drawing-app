@@ -1,14 +1,22 @@
 @startuml
+left to right direction
+
 class com.bohdanbulakh.drawing_app.MainActivity {
 - MenuItem? checkedToolbarMenuItem
 - Menu toolbarMenu
 - TextView windowTitle
+- Table table
 -  editor
 + void onCreate(Bundle?)
++ void onPostCreate(Bundle?)
 + Boolean onCreateOptionsMenu(Menu?)
 + Boolean onOptionsItemSelected(MenuItem)
 - Boolean startEditor(MenuItem)
 - void makeToolbarMenuItemActive(Int)
+- void saveFile()
+- void openFile()
+- PopupMenu setPopupMenu(Int,Int)
+- void resizerSetup(View?)
 }
 
 
@@ -28,15 +36,26 @@ abstract class com.bohdanbulakh.drawing_app.shapes.Shape {
 + Paint paint
 }
 
+class com.bohdanbulakh.drawing_app.MyEditor$Companion {
+- MyEditor? instance
++ MyEditor getInstance()
+}
+
+
 class com.bohdanbulakh.drawing_app.MyEditor {
 -  arraySize
 -  shapes
-- ShapeInterface currentShape
-+ void start(ShapeInterface)
+- ShapeInterface? currentShape
+- Table table
+-  highlightShape
+-  removeShape
++ void start(Shape)
 + void onPaint(Canvas)
 + void onLBdown(Coordinates)
 + void onMouseMove(Coordinates)
 + void onLBup()
++ void setTable(Table)
++ void loadShapes(List<String>)
 }
 
 
@@ -54,14 +73,15 @@ class com.bohdanbulakh.drawing_app.utils.ArrayUtils$Companion {
 + void addItem(Array<T?>,T)
 + T getLastItem(Array<T>)
 + void removeFirst(Array<T?>)
++ void removeAtIndex(Int,Array<T?>)
++ void clear(Array<T?>)
 }
 
 class com.bohdanbulakh.drawing_app.utils.ArrayUtils {
 }
 class com.bohdanbulakh.drawing_app.Canvas {
-- MyEditor editor
+-  editor
 + <<Create>> Canvas(Context,AttributeSet)
-+ void setEditor(MyEditor)
 + void onDraw(Canvas)
 + Boolean onTouchEvent(MotionEvent?)
 }
@@ -77,12 +97,37 @@ class com.bohdanbulakh.drawing_app.shapes.PointShape {
 + void getShape()
 }
 
+class com.bohdanbulakh.drawing_app.Table {
+- ConstraintLayout tableLayout
+- TableLayout table
+- Button removeButton
+- (index: Int, color: Int) -> Unit highlightShapeCallback
+- (index: Int?) -> Unit removeShapeCallback
+- TableRow? activeRow
++  shapesInfo
++ View onCreateView(LayoutInflater,ViewGroup?,Bundle?)
++ void toggleVisibility()
++ void add(ShapeInfo)
++ void setCallbacks((index: Int, color: Int) -> Unit,(index: Int?) -> Unit)
+- void highlight(Int,Int)
+- TableRow makeRow(ShapeInfo)
+- void createTableHeader()
++ void loadShapesInfo(List<String>)
+}
+
+
 class com.bohdanbulakh.drawing_app.shapes.LineOOShape {
 + <<Create>> LineOOShape()
 + void show(Canvas)
 + void getShape()
 }
 
+class com.bohdanbulakh.drawing_app.utils.TableUtils$Companion {
++ Int? findRowIndex(TableRow?,TableLayout)
+}
+
+class com.bohdanbulakh.drawing_app.utils.TableUtils {
+}
 interface com.bohdanbulakh.drawing_app.shapes.interfaces.LineInterface {
 + void show(Canvas)
 + ShapeInterface getShape()
@@ -118,6 +163,12 @@ class com.bohdanbulakh.drawing_app.shapes.EllipseShape {
 }
 
 
+class com.bohdanbulakh.drawing_app.ShapeInfo {
++ <<Create>> ShapeInfo(String,Float,Float,Float,Float)
++ <<Create>> ShapeInfo(ShapeInterface)
++ Array<String> toArray()
+}
+
 interface com.bohdanbulakh.drawing_app.shapes.interfaces.ShapeInterface {
 + CoordinatesPair coords
 + Boolean gumStyle
@@ -143,14 +194,17 @@ class com.bohdanbulakh.drawing_app.CoordinatesPair {
 androidx.appcompat.app.AppCompatActivity <|-- com.bohdanbulakh.drawing_app.MainActivity
 com.bohdanbulakh.drawing_app.utils.CoordinateUtils +.. com.bohdanbulakh.drawing_app.utils.CoordinateUtils$Companion
 com.bohdanbulakh.drawing_app.shapes.interfaces.ShapeInterface <|.. com.bohdanbulakh.drawing_app.shapes.Shape
+com.bohdanbulakh.drawing_app.MyEditor +.. com.bohdanbulakh.drawing_app.MyEditor$Companion
 com.bohdanbulakh.drawing_app.shapes.Shape <|-- com.bohdanbulakh.drawing_app.shapes.RectShape
 com.bohdanbulakh.drawing_app.utils.ArrayUtils +.. com.bohdanbulakh.drawing_app.utils.ArrayUtils$Companion
 android.view.View <|-- com.bohdanbulakh.drawing_app.Canvas
 com.bohdanbulakh.drawing_app.shapes.Shape <|-- com.bohdanbulakh.drawing_app.shapes.LineShape
 com.bohdanbulakh.drawing_app.shapes.interfaces.LineInterface <|.. com.bohdanbulakh.drawing_app.shapes.LineShape
 com.bohdanbulakh.drawing_app.shapes.Shape <|-- com.bohdanbulakh.drawing_app.shapes.PointShape
+androidx.fragment.app.Fragment <|-- com.bohdanbulakh.drawing_app.Table
 com.bohdanbulakh.drawing_app.shapes.EllipseShape <|-- com.bohdanbulakh.drawing_app.shapes.LineOOShape
 com.bohdanbulakh.drawing_app.shapes.interfaces.LineInterface <|.. com.bohdanbulakh.drawing_app.shapes.LineOOShape
+com.bohdanbulakh.drawing_app.utils.TableUtils +.. com.bohdanbulakh.drawing_app.utils.TableUtils$Companion
 com.bohdanbulakh.drawing_app.shapes.interfaces.ShapeInterface <|.. com.bohdanbulakh.drawing_app.shapes.interfaces.LineInterface
 com.bohdanbulakh.drawing_app.shapes.RectShape <|-- com.bohdanbulakh.drawing_app.shapes.CubeShape
 com.bohdanbulakh.drawing_app.shapes.interfaces.LineInterface <|.. com.bohdanbulakh.drawing_app.shapes.CubeShape
